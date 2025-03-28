@@ -25,8 +25,12 @@ source-repository head
 
 library
   exposed-modules:
+      AST
+      DeBrujin
       Inference
+      IR
       Lib
+      Parser
   other-modules:
       Paths_hott_impl
   autogen-modules:
