@@ -14,13 +14,19 @@ import qualified Data.IntMap.Strict as IntMap
 import Data.IntSet (IntSet, (\\))
 import qualified Data.IntSet as IntSet
 
-import Control.Monad.Trans.Except (ExceptT, runExceptT)
+import Control.Monad.Trans.Except (ExceptT, runExceptT, throwE)
 import Control.Monad.Trans.State (State, runState, get, put)
 import Control.Monad.Trans.Class (MonadTrans(lift))
 
 type TyVar = Int
 
 newtype Subst a = Subst (IntMap a)
+
+emptySubst :: Subst a
+emptySubst = Subst $ IntMap.empty
+
+singleSubst :: TyVar -> a -> Subst a
+singleSubst v = Subst . IntMap.singleton v
 
 class Holey a where
   free :: a -> IntSet
@@ -50,16 +56,17 @@ instance Holey a => Holey [a] where
 instance Inf t t => Inf t [t] where
   apply s = map (apply s)
 
-newtype TypeEnv a = TypeEnv (IntMap (Scheme a))
+-- De Brujin TypeEnv
+data TypeEnv a = TypeEnv Int [Scheme a]
 
-remove :: TypeEnv a -> TyVar -> TypeEnv a
-remove (TypeEnv env) v = TypeEnv (IntMap.delete v env)
+emptyEnv :: TypeEnv a
+emptyEnv = TypeEnv 0 []
 
 instance Holey a => Holey (TypeEnv a) where
-  free (TypeEnv env) = free (IntMap.elems env)
+  free (TypeEnv _ env) = free env
 
 instance Inf t t => Inf t (TypeEnv t) where
-  apply s (TypeEnv env) = TypeEnv (IntMap.map (apply s) env)
+  apply s (TypeEnv i env) = TypeEnv i (map (apply s) env)
 
 generalize :: Holey t => TypeEnv t -> t -> Scheme t
 generalize env t = Scheme vs t
@@ -87,6 +94,9 @@ instantiate :: Inf t t => Scheme t -> (TyVar -> t) -> TI t
 instantiate (Scheme vs t) varc = do
   s <- Subst <$> sequenceA (IntMap.fromSet (\_ -> varc <$> newTyVar) vs)
   return $ apply s t
+
+err :: String -> TI t
+err msg = TI $ throwE msg
 
 -------------------------------------------------------------------------------
 --                            Implementation Guide                           --
