@@ -16,7 +16,7 @@ data Type
   | Π Type Type
   | Dep Expr
   | TV TyVar
- deriving Show
+ deriving (Eq, Show)
 
 data Expr
   = App Expr Expr
@@ -24,7 +24,7 @@ data Expr
   | (:&:) Expr Expr
   | Abs Expr
   | Var DBIndex
- deriving Show
+ deriving (Eq, Show)
 
 instance Holey Type where
   free (U _) = IntSet.empty

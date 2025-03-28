@@ -5,7 +5,7 @@ import Data.Functor.Identity (Identity)
 import Data.List (findIndex)
 
 newtype DBIndex = DBIndex Int
- deriving Show
+ deriving (Eq, Show)
 
 newtype DeBrujin_T a m x = DeBrujin_T (StateT (Int, [a]) m x)
  deriving (Functor, Applicative)

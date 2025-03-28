@@ -40,6 +40,23 @@ packages:
 #   commit: e7b331f14bcffb8367cd58fbfc8b40ec7642100a
 #
 # extra-deps: []
+extra-deps:
+ - HUnit-1.6.2.0
+ - QuickCheck-2.15.0.1
+ - hspec-2.11.9
+ - call-stack-0.4.0
+ - hspec-core-2.11.9
+ - hspec-discover-2.11.9
+ - hspec-expectations-0.8.4
+ - random-1.2.1.2
+ - splitmix-0.1.0.5
+ - ansi-terminal-1.1.1
+ - haskell-lexer-1.1.1
+ - quickcheck-io-0.2.0
+ - tf-random-0.5
+ - ansi-terminal-types-1.1
+ - colour-2.3.6
+ - primitive-0.9.0.0
 
 # Override default flag values for project packages and extra-deps
 # flags: {}

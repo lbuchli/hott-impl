@@ -23,6 +23,10 @@ dependencies:
 - base >= 4.7 && < 5
 - transformers >= 0.6 && < 0.7
 - containers >= 0.7 && < 0.8
+# test dependencies
+- hspec >= 2.11 && < 2.12
+- QuickCheck >= 2.15 && < 2.16
+- HUnit >= 1.6 && < 1.7
 
 ghc-options:
 - -Wall

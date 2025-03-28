@@ -39,8 +39,11 @@ library
       src
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
   build-depends:
-      base >=4.7 && <5
+      HUnit ==1.6.*
+    , QuickCheck ==2.15.*
+    , base >=4.7 && <5
     , containers ==0.7.*
+    , hspec ==2.11.*
     , transformers ==0.6.*
   default-language: Haskell2010
 
@@ -54,9 +57,12 @@ executable hott-impl-exe
       app
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
+      HUnit ==1.6.*
+    , QuickCheck ==2.15.*
+    , base >=4.7 && <5
     , containers ==0.7.*
     , hott-impl
+    , hspec ==2.11.*
     , transformers ==0.6.*
   default-language: Haskell2010
 
@@ -71,8 +77,11 @@ test-suite hott-impl-test
       test
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
+      HUnit ==1.6.*
+    , QuickCheck ==2.15.*
+    , base >=4.7 && <5
     , containers ==0.7.*
     , hott-impl
+    , hspec ==2.11.*
     , transformers ==0.6.*
   default-language: Haskell2010
